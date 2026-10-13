@@ -131,14 +131,14 @@ var ATRAS='<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><p
 
 var VISTAS={
   inicio:{titulo:"Programa 5S",lead:"Elige cómo vas a participar hoy.",opciones:[
-    {ir:"#equipo",icono:"equipo",titulo:"Inspección y subsanación",quien:"Auditores y facilitadores de área",texto:"Registra los hallazgos del ANTES o sube las mejoras del DESPUÉS."},
-    {ir:"#coordinacion",icono:"coord",titulo:"Coordinación 5S",quien:"Coordinadora del programa",texto:"Pasa los checklists al Excel de diagnóstico.",candado:true}]},
+    {ir:"#equipo",icono:"equipo",titulo:"Inspección y subsanación",quien:"Auditoría y facilitación de áreas"},
+    {ir:"#coordinacion",icono:"coord",titulo:"Coordinación 5S",quien:"Gestión del programa",candado:true}]},
   equipo:{titulo:"Inspección y subsanación",lead:"¿Qué te toca hacer?",atras:true,opciones:[
-    {ir:"inspeccion.html",icono:"auditor",titulo:"Reporte de inspección",quien:"Soy auditor",texto:"Toma las fotos del ANTES, registra los hallazgos por sub-área y genera el Word con el ZIP de fotos."},
-    {ir:"levantamiento.html",icono:"facilitador",titulo:"Subsanación de observaciones",quien:"Soy facilitador del área",texto:"Carga el Word que te enviaron, toma las fotos del DESPUÉS y genera el Word subsanado."}],
-    flujo:["<b>El auditor</b> inspecciona y envía el Word con el ZIP de fotos.","<b>La coordinadora</b> envía el informe a cada área.","<b>El facilitador</b> subsana y envía el Word a auxiliar5s@ememsa.pe."]},
-  coordinacion:{titulo:"Coordinación 5S",lead:"Herramientas de la coordinadora. Se abren con contraseña.",atras:true,opciones:[
-    {ir:"coordinadora.html",icono:"excel",titulo:"Checklists al Excel",quien:"Diagnóstico mensual",texto:"Sube las fotos de los checklists llenados a mano, revisa lo leído y actualiza el Excel de diagnóstico.",candado:true}]}
+    {ir:"inspeccion.html",icono:"auditor",titulo:"Reporte de inspección",quien:"Auditoría",texto:"Toma las fotos y registra los hallazgos por área. Al final, genera el informe en Word y descarga las fotos originales en un ZIP."},
+    {ir:"levantamiento.html",icono:"facilitador",titulo:"Subsanación de observaciones",quien:"Facilitación del área",texto:"Adjunta el Word del Reporte de Inspección, realiza las correcciones y mejoras, y genera el Word de la subsanación."}],
+    flujo:["<b>Auditoría:</b> inspecciona y envía el Word con el ZIP de fotos.","<b>Coordinación 5S:</b> envía el informe a cada área.","<b>Facilitación del área:</b> subsana y envía el Word a auxiliar5s@ememsa.pe."]},
+  coordinacion:{titulo:"Coordinación 5S",lead:"Herramientas de la coordinación 5S. Se abre con contraseña.",atras:true,opciones:[
+    {ir:"coordinadora.html",icono:"excel",titulo:"Checklists al Excel",quien:"Diagnóstico mensual",candado:true}]}
 };
 function el(html){var d=document.createElement("div");d.innerHTML=html.trim();return d.firstChild}
 function pintar(){
@@ -155,7 +155,7 @@ function pintar(){
   var ops=el('<div class="opciones"></div>');
   v.opciones.forEach(function(o){
     var a=el('<a class="op" href="'+o.ir+'">'+cubo(o.icono)+'<div><h2></h2><span class="quien"></span><p></p>'+(o.candado?'<span class="candado"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="8" rx="2" fill="currentColor"/><path d="M5 7V5a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>Requiere contraseña</span>':'')+'</div><span class="ir">'+FLECHA+'</span></a>');
-    a.querySelector("h2").textContent=o.titulo;a.querySelector(".quien").textContent=o.quien;a.querySelector("p").textContent=o.texto;
+    a.querySelector("h2").textContent=o.titulo;a.querySelector(".quien").textContent=o.quien;var pp=a.querySelector("p");if(o.texto)pp.textContent=o.texto;else pp.remove();
     ops.appendChild(a)});
   cont.appendChild(ops);
   if(v.flujo){var f=el('<div class="flujo"><h3>Cómo fluye el reporte</h3><ol></ol></div>');v.flujo.forEach(function(t){var li=document.createElement("li");li.innerHTML="<span>"+t+"</span>";f.querySelector("ol").appendChild(li)});cont.appendChild(f)}
